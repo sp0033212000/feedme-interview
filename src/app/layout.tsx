@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
+import { OrderContextProvider } from "@/context/OrderContext";
 import React from "react";
+import { BotContextProvider } from "@/context/BotContext";
 
 const noto = Noto_Sans_TC({ subsets: ["latin"] });
 
@@ -16,8 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={noto.className}>{children}</body>
-    </html>
+    <OrderContextProvider>
+      <BotContextProvider>
+        <html lang="en">
+          <body className={noto.className}>{children}</body>
+        </html>
+      </BotContextProvider>
+    </OrderContextProvider>
   );
 }
